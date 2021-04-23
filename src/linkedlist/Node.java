@@ -1,10 +1,11 @@
 package linkedlist;
 
+// Knoten / Container-Klasse
 public class Node<T>
 {
     private final T value;
 
-    private Node<T> next;
+    private Node<T> next; // Zeiger / Pointer / Nachfolger
 
     public Node(T value) {
 

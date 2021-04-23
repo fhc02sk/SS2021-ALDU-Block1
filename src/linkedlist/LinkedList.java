@@ -2,9 +2,9 @@ package linkedlist;
 
 public class LinkedList<T>
 {
-    private Node<T> first;
+    private Node<T> first; // Zeiger, zeigt auf erste Element
 
-    private Node<T> last;
+    private Node<T> last; // Zeiger, zeigt auf letzte Element
 
     private Node<T> iterator;
 
@@ -13,10 +13,18 @@ public class LinkedList<T>
      * @param a Object
      */
     public void add(T a) {
-
+        Node<T> newElement = new Node<>(a);
+        if (first == null) {
+            // Liste ist leer
+            first = newElement;
+            last = newElement;
+        }
+        else {
+            // Liste ist schon befüllt
+            last.setNext(newElement);
+            last = newElement;
+        }
     }
-
-
 
     /**
      * Gibt Object an bestimmter Position zurueck. Ausgehend von first muss die Liste von vorne nach hinten
@@ -26,7 +34,14 @@ public class LinkedList<T>
      */
     public T get(int pos) {
 
-        return null;
+        Node<T> n = first;
+        int index = 1;
+        while (index != pos && n != null) {
+            index++;
+            n = n.getNext();
+        }
+
+        return n != null ? n.getValue() : null;
     }
 
     /**
@@ -48,8 +63,26 @@ public class LinkedList<T>
         Node<T> prev = null;
         int cnt = 1;
 
+        while (cnt != pos && n != null) {
+            cnt++;
+            prev = n;
+            n = n.getNext();
+        }
 
+        if (n == null)
+            return ;
 
+        if (pos == 1) {
+            Node<T> delete = first;
+            first = first.getNext();
+            delete.setNext(null);
+        }
+        else if (prev.getNext() == last){
+            last = prev;
+        }
+        else if (prev != null){
+            prev.setNext(prev.getNext().getNext());
+        }
     }
 
     /**
@@ -59,8 +92,14 @@ public class LinkedList<T>
      */
     public int getPos(T a) {
 
+        Node<T> n = first;
+        int index = 1;
+        while (n != null && n.getValue() != a) {
+            index++;
+            n = n.getNext();
+        }
 
-        return 0;
+        return n != null ? index : 0;
     }
 
     /**
@@ -71,15 +110,25 @@ public class LinkedList<T>
      */
     public boolean removeObject(T a) {
 
+        int index = getPos(a);
+        if (index == 0)
+            return false;
+
+        remove(index);
         return true;
     }
 
     public void reset(){
-
+        iterator = first;
     }
 
     public T next() {
-        return null;
+        if (iterator == null)
+            return null;
+
+        T value = iterator.getValue();
+        iterator = iterator.getNext();
+        return value;
     }
 
 }
