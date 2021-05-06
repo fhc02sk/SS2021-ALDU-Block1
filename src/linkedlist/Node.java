@@ -13,8 +13,7 @@ public class Node<T>
     }
 
     public T getValue() {
-        // changes
-        return null;
+        return value;
     }
 
     public Node<T> getNext() {
