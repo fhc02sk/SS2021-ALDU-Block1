@@ -13,6 +13,8 @@ public class Node<T>
     }
 
     public T getValue() {
+        // Mein Kommentar
+        int x = 0;
         return value;
     }
 
